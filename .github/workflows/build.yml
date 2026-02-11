@@ -23,7 +23,7 @@ jobs:
       - name: Restore
         run: dotnet restore
       - name: Build
-        run: dotnet build betareborn.sln --configuration ClientRelease
+        run: dotnet build betareborn.sln --configuration ClientDebug
       - name: Publish
         run: dotnet publish -c Release -o ./publish
       - name: Upload build artifacts
