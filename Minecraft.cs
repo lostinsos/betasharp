@@ -99,15 +99,11 @@ namespace betareborn
         {
             loadingScreen = new LoadingScreenRenderer(this);
             guiAchievement = new GuiAchievement(this);
-            Stats.Stats.func_27360_a();
             tempDisplayHeight = var5;
             fullscreen = var6;
-            //tf is this
-            //new ThreadSleepForever(this, "Timer hack thread");
             displayWidth = var4;
             displayHeight = var5;
             fullscreen = var6;
-            //hideQuitButton = false;
 
             INSTANCE = this;
         }
@@ -172,9 +168,9 @@ namespace betareborn
             texturePackList = new TexturePacks(this, mcDataDir);
             textureManager = new TextureManager(texturePackList, options);
             fontRenderer = new TextRenderer(options, textureManager);
-            WaterColors.setcolorMap(textureManager.getColors("/misc/watercolor.png"));
-            GrassColors.func_28181_a(textureManager.getColors("/misc/grasscolor.png"));
-            FoliageColors.func_28152_a(textureManager.getColors("/misc/foliagecolor.png"));
+            WaterColors.loadColors(textureManager.getColors("/misc/watercolor.png"));
+            GrassColors.loadColors(textureManager.getColors("/misc/grasscolor.png"));
+            FoliageColors.loadColors(textureManager.getColors("/misc/foliagecolor.png"));
             gameRenderer = new GameRenderer(this);
             EntityRenderDispatcher.instance.heldItemRenderer = new HeldItemRenderer(this);
             statFileWriter = new StatFileWriter(session, mcDataDir);
@@ -445,17 +441,6 @@ namespace betareborn
                 statFileWriter.func_27175_b();
                 statFileWriter.syncStats();
 
-                //try
-                //{
-                //    if (downloadResourcesThread != null)
-                //    {
-                //        downloadResourcesThread.closeMinecraft();
-                //    }
-                //}
-                //catch (java.lang.Exception var9)
-                //{
-                //}
-
                 java.lang.System.@out.println("Stopping!");
 
                 try
@@ -520,7 +505,6 @@ namespace betareborn
                     }
                     try
                     {
-                        Vec3D.initialize();
                         if (Display.isCloseRequested())
                         {
                             shutdown();
@@ -1805,6 +1789,8 @@ namespace betareborn
 
         public static void startMainThread(string var0, string var1, string var2)
         {
+            new Server.Threading.RunServerThread(new(), "RunServerThread").start();
+
             Minecraft mc = new(1920, 1080, false);
             java.lang.Thread var8 = new(mc, "Minecraft main thread");
             var8.setPriority(10);
