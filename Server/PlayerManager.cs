@@ -19,19 +19,19 @@ namespace betareborn.Server
     {
         public static Logger LOGGER = Logger.getLogger("Minecraft");
         public List players = new ArrayList();
-        private MinecraftServer server;
-        private ChunkMap[] chunkMaps;
-        private int maxPlayerCount;
-        private HashSet<string> bannedPlayers = [];
-        private HashSet<string> bannedIps = [];
-        private HashSet<string> ops = [];
-        private HashSet<string> whitelist = [];
-        private java.io.File BANNED_PLAYERS_FILE;
-        private java.io.File BANNED_IPS_FILE;
-        private java.io.File OPERATORS_FILE;
-        private java.io.File WHITELIST_FILE;
+        private readonly MinecraftServer server;
+        private readonly ChunkMap[] chunkMaps;
+        private readonly int maxPlayerCount;
+        private readonly HashSet<string> bannedPlayers = [];
+        private readonly HashSet<string> bannedIps = [];
+        private readonly HashSet<string> ops = [];
+        private readonly HashSet<string> whitelist = [];
+        private readonly java.io.File BANNED_PLAYERS_FILE;
+        private readonly java.io.File BANNED_IPS_FILE;
+        private readonly java.io.File OPERATORS_FILE;
+        private readonly java.io.File WHITELIST_FILE;
         private PlayerSaveHandler saveHandler;
-        private bool whitelistEnabled;
+        private readonly bool whitelistEnabled;
 
         public PlayerManager(MinecraftServer server)
         {
@@ -41,11 +41,11 @@ namespace betareborn.Server
             BANNED_IPS_FILE = server.getFile("banned-ips.txt");
             OPERATORS_FILE = server.getFile("ops.txt");
             WHITELIST_FILE = server.getFile("white-list.txt");
-            int var2 = server.properties.getProperty("view-distance", 10);
+            int var2 = server.config.GetViewDistance(10);
             chunkMaps[0] = new ChunkMap(server, 0, var2);
             chunkMaps[1] = new ChunkMap(server, -1, var2);
-            maxPlayerCount = server.properties.getProperty("max-players", 20);
-            whitelistEnabled = server.properties.getProperty("white-list", false);
+            maxPlayerCount = server.config.GetMaxPlayers(20);
+            whitelistEnabled = server.config.GetWhiteList(false);
             loadBannedPlayers();
             loadBannedIps();
             loadOperators();

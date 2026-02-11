@@ -1789,8 +1789,6 @@ namespace betareborn
 
         public static void startMainThread(string var0, string var1, string var2)
         {
-            new Server.Threading.RunServerThread(new(), "RunServerThread").start();
-
             Minecraft mc = new(1920, 1080, false);
             java.lang.Thread var8 = new(mc, "Minecraft main thread");
             var8.setPriority(10);

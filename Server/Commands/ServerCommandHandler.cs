@@ -10,7 +10,7 @@ namespace betareborn.Server.Commands
 {
     public class ServerCommandHandler
     {
-        private static Logger logger = Logger.getLogger("Minecraft");
+        private static readonly Logger logger = Logger.getLogger("Minecraft");
         private readonly MinecraftServer server;
 
         public ServerCommandHandler(MinecraftServer server)
@@ -305,12 +305,12 @@ namespace betareborn.Server.Commands
                 if ("on".Equals(var5))
                 {
                     logCommand(commandUser, "Turned on white-listing");
-                    server.properties.setProperty("white-list", true);
+                    server.config.SetProperty("white-list", true);
                 }
                 else if ("off".Equals(var5))
                 {
                     logCommand(commandUser, "Turned off white-listing");
-                    server.properties.setProperty("white-list", false);
+                    server.config.SetProperty("white-list", false);
                 }
                 else if ("list".Equals(var5))
                 {
