@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        on: [windows-latest]
+        on: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.on }}
     steps:
       - uses: actions/checkout@v3
